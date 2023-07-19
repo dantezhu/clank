@@ -12,10 +12,6 @@ export class PlayerController extends Component {
     @property(Node)
     weapon = null;
 
-    // 旋转速度，可以根据需求调整
-    @property
-    rotationSpeed: number = 100; // 单位：度/秒
-
     onLoad () {
         input.on(Input.EventType.KEY_DOWN, this.onKeyDown, this);
         input.on(Input.EventType.KEY_UP, this.onKeyUp, this);
@@ -35,37 +31,6 @@ export class PlayerController extends Component {
             // console.log("update, node.position:" + this.node.position);
         }
 
-        // this.updateWeapon(deltaTime);
-    }
-
-    updateWeapon(dt: number) {
-        // 计算旋转角度
-        const angle = this.rotationSpeed * dt;
-
-        // 将角度转换为弧度
-        const radian = misc.degreesToRadians(angle);
-
-        // 获取相对于rotationCenter节点的旋转位置
-        const rotatingPosition = this.weapon.position.subtract(this.node.position);
-
-        // 计算旋转后的位置
-        const rotatedX = rotatingPosition.x * Math.cos(radian) - rotatingPosition.y * Math.sin(radian);
-        const rotatedY = rotatingPosition.x * Math.sin(radian) + rotatingPosition.y * Math.cos(radian);
-
-        // 计算图片应该面向的方向
-        const targetDirection = new Vec2(rotatedX, rotatedY).normalize();
-
-        // 计算图片当前面向的方向
-        const currentDirection = this.weapon.position.subtract(this.node.position).normalize();
-
-        // 计算图片需要旋转的角度
-        const faceAngle = new Vec2(1, 0).signAngle(targetDirection) - new Vec2(1, 0).signAngle(currentDirection);
-
-        // 将旋转后的位置重新赋值给rotatingImage节点（转换回世界坐标）
-        this.weapon.setPosition(this.node.position.x + rotatedX, this.node.position.y + rotatedY);
-
-        // 将图片进行面向旋转
-        this.weapon.angle += misc.radiansToDegrees(faceAngle);
     }
 
     onKeyDown (event: EventKeyboard) {

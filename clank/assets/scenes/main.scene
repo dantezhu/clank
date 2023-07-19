@@ -319,7 +319,10 @@
     },
     "_enabled": true,
     "__prefab": null,
-    "speed": 300,
+    "speed": 400,
+    "weapon": {
+      "__id__": 9
+    },
     "_id": "56GIAiWoJB3amgl/xqcJdl"
   },
   {
@@ -345,8 +348,8 @@
     "_prefab": null,
     "_lpos": {
       "__type__": "cc.Vec3",
-      "x": 1.1368683772161603e-13,
-      "y": 384.4300000000003,
+      "x": 2.2737367544323206e-13,
+      "y": 384.4300000000005,
       "z": 0
     },
     "_lrot": {
@@ -444,7 +447,7 @@
       "__id__": 5
     },
     "clockwise": true,
-    "timePerRound": 10,
+    "timePerRound": 5,
     "faceToTarget": true,
     "faceAxis": 3,
     "autoStart": true,
