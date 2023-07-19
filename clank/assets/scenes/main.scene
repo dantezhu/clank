@@ -323,6 +323,7 @@
     "weapon": {
       "__id__": 9
     },
+    "rotationSpeed": -100,
     "_id": "56GIAiWoJB3amgl/xqcJdl"
   },
   {

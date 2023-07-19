@@ -52,8 +52,20 @@ export class PlayerController extends Component {
         const rotatedX = rotatingPosition.x * Math.cos(radian) - rotatingPosition.y * Math.sin(radian);
         const rotatedY = rotatingPosition.x * Math.sin(radian) + rotatingPosition.y * Math.cos(radian);
 
+        // 计算图片应该面向的方向
+        const targetDirection = new Vec2(rotatedX, rotatedY).normalize();
+
+        // 计算图片当前面向的方向
+        const currentDirection = this.weapon.position.subtract(this.node.position).normalize();
+
+        // 计算图片需要旋转的角度
+        const faceAngle = new Vec2(1, 0).signAngle(targetDirection) - new Vec2(1, 0).signAngle(currentDirection);
+
         // 将旋转后的位置重新赋值给rotatingImage节点（转换回世界坐标）
         this.weapon.setPosition(this.node.position.x + rotatedX, this.node.position.y + rotatedY);
+
+        // 将图片进行面向旋转
+        this.weapon.angle += misc.radiansToDegrees(faceAngle);
     }
 
     onKeyDown (event: EventKeyboard) {
