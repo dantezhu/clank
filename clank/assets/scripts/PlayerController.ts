@@ -35,7 +35,7 @@ export class PlayerController extends Component {
             // console.log("update, node.position:" + this.node.position);
         }
 
-        this.updateWeapon(deltaTime);
+        // this.updateWeapon(deltaTime);
     }
 
     updateWeapon(dt: number) {
