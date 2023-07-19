@@ -1,4 +1,4 @@
-import { _decorator, Component, Vec3, Vec2, Node, input, Input, EventKeyboard, KeyCode, misc} from 'cc';
+import { _decorator, Component, Vec3, Vec2, Node, input, Input, EventKeyboard, KeyCode, misc, warn, Enum} from 'cc';
 
 /** 轴 */
 export enum Axis {
@@ -37,7 +37,7 @@ export default class RotateAround extends Component {
     @property({ tooltip: CC_DEV && '是否始终面向目标节点' })
     public faceToTarget: boolean = false;
 
-    @property({ type: cc.Enum(Axis), visible() { return this.faceToTarget }, tooltip: CC_DEV && '面向目标节点的轴：\n- PositiveX：正 X 轴\n- PositiveY：正 Y 轴\n- NegativeX：负 X 轴\n- NegativeY：负 Y 轴' })
+    @property({ type: Enum(Axis), visible() { return this.faceToTarget }, tooltip: CC_DEV && '面向目标节点的轴：\n- PositiveX：正 X 轴\n- PositiveY：正 Y 轴\n- NegativeX：负 X 轴\n- NegativeY：负 Y 轴' })
     public faceAxis: Axis = Axis.NegativeY;
 
     @property({ tooltip: CC_DEV && '自动开始旋转' })
@@ -120,14 +120,14 @@ export default class RotateAround extends Component {
      * @param faceToTarget 是否始终面向目标节点
      * @param faceAxis 面向目标节点的轴
      */
-    public run(target?: cc.Node, clockwise?: boolean, timePerRound?: number, faceToTarget?: boolean, faceAxis?: Axis) {
+    public run(target?: Node, clockwise?: boolean, timePerRound?: number, faceToTarget?: boolean, faceAxis?: Axis) {
         if (target != undefined) this.target = target;
         if (clockwise != undefined) this.clockwise = clockwise;
         if (timePerRound != undefined) this.timePerRound = timePerRound;
         if (faceToTarget != undefined) this.faceToTarget = faceToTarget;
         if (faceAxis != undefined) this.faceAxis = faceAxis;
         if (!this.target) {
-            cc.warn('[RotateAround]', 'No target!');
+            warn('[RotateAround]', 'No target!');
             return;
         }
         // 计算初始角度和半径
@@ -152,7 +152,7 @@ export default class RotateAround extends Component {
      * @param p2 点2
      * @see MathUtil.ts https://gitee.com/ifaswind/eazax-ccc/blob/master/utils/MathUtil.ts
      */
-    protected getAngle(p1: cc.Vec2, p2: cc.Vec2): number {
+    protected getAngle(p1: Vec3, p2: Vec3): number {
         return Math.atan((p2.y - p1.y) / (p2.x - p1.x));
     }
 
@@ -162,7 +162,7 @@ export default class RotateAround extends Component {
      * @param p2 点2
      * @see MathUtil.ts https://gitee.com/ifaswind/eazax-ccc/blob/master/utils/MathUtil.ts
      */
-    protected getDistance(p1: cc.Vec2, p2: cc.Vec2): number {
+    protected getDistance(p1: Vec3, p2: Vec3): number {
         return Math.sqrt(Math.pow(p2.x - p1.x, 2) + Math.pow(p2.y - p1.y, 2));
     }
 
