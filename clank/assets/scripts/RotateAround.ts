@@ -1,5 +1,8 @@
 import { _decorator, Component, Vec3, Vec2, Node, input, Input, EventKeyboard, KeyCode, misc, warn, Enum} from 'cc';
 
+import {DEV} from 'cc/env';
+
+
 /** 轴 */
 export enum Axis {
     /** 正 X 轴 */
@@ -25,22 +28,22 @@ const { ccclass, property, help, menu } = _decorator;
 @menu('eazax/其他组件/RotateAround')
 export default class RotateAround extends Component {
 
-    @property({ type: Node, tooltip: CC_DEV && '围绕旋转的目标' })
+    @property({ type: Node, tooltip: DEV && '围绕旋转的目标' })
     public target: Node = null;
 
-    @property({ tooltip: CC_DEV && '顺时针旋转' })
+    @property({ tooltip: DEV && '顺时针旋转' })
     public clockwise: boolean = true;
 
-    @property({ tooltip: CC_DEV && '旋转一圈花费的时间' })
+    @property({ tooltip: DEV && '旋转一圈花费的时间' })
     public timePerRound: number = 10;
 
-    @property({ tooltip: CC_DEV && '是否始终面向目标节点' })
+    @property({ tooltip: DEV && '是否始终面向目标节点' })
     public faceToTarget: boolean = false;
 
-    @property({ type: Enum(Axis), visible() { return this.faceToTarget }, tooltip: CC_DEV && '面向目标节点的轴：\n- PositiveX：正 X 轴\n- PositiveY：正 Y 轴\n- NegativeX：负 X 轴\n- NegativeY：负 Y 轴' })
+    @property({ type: Enum(Axis), visible() { return this.faceToTarget }, tooltip: DEV && '面向目标节点的轴：\n- PositiveX：正 X 轴\n- PositiveY：正 Y 轴\n- NegativeX：负 X 轴\n- NegativeY：负 Y 轴' })
     public faceAxis: Axis = Axis.NegativeY;
 
-    @property({ tooltip: CC_DEV && '自动开始旋转' })
+    @property({ tooltip: DEV && '自动开始旋转' })
     public autoStart: boolean = false;
 
     /**
