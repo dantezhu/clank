@@ -26,18 +26,14 @@ export class SwordController extends Component {
     }
     onBeginContact (selfCollider: Collider2D, otherCollider: Collider2D, contact: IPhysics2DContact | null) {
         // 只在两个碰撞体开始接触时被调用一次
-        console.log('onBeginContact');
+        console.log('onBeginContact, contact:', contact);
+
         let around = this.getComponent(RotateAround);
-
-        console.log('around before:', around)
-
         around.clockwise = !around.clockwise;
-
-        console.log('around after:', around)
     }
     onEndContact (selfCollider: Collider2D, otherCollider: Collider2D, contact: IPhysics2DContact | null) {
         // 只在两个碰撞体结束接触时被调用一次
-        console.log('onEndContact');
+        console.log('onEndContact, contact:', contact);
     }
     onPreSolve (selfCollider: Collider2D, otherCollider: Collider2D, contact: IPhysics2DContact | null) {
         // 每次将要处理碰撞体接触逻辑时被调用
