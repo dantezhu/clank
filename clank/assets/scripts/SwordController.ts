@@ -1,4 +1,4 @@
-import { _decorator, Component, Node, Collider2D, Contact2DType, PhysicsSystem2D, IPhysics2DContact} from 'cc';
+import { _decorator, Component, Node, Vec2, Collider2D, Contact2DType, PhysicsSystem2D, IPhysics2DContact} from 'cc';
 import RotateAround from './RotateAround';
 const { ccclass, property } = _decorator;
 
@@ -26,7 +26,18 @@ export class SwordController extends Component {
     }
     onBeginContact (selfCollider: Collider2D, otherCollider: Collider2D, contact: IPhysics2DContact | null) {
         // 只在两个碰撞体开始接触时被调用一次
-        console.log('onBeginContact, contact:', contact);
+
+        // 改变旋转方向的思路
+        // 计算接触点到围绕中心点的向量与sword当前的向量之间的角度。
+        // 然后用这个角度与当前是顺时针还是逆时针向比较，从而判断是否要改变旋转的方向。
+
+        console.log('onBeginContact, contact:', contact.getWorldManifold());
+        console.log('onBeginContact, vec2:', contact.getWorldManifold().normal.clone().subtract(
+            new Vec2(
+                this.getComponent(RotateAround).target.getPosition().x,
+                this.getComponent(RotateAround).target.getPosition().y,
+            )
+        ));
 
         let around = this.getComponent(RotateAround);
         around.clockwise = !around.clockwise;
