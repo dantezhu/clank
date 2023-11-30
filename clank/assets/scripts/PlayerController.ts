@@ -1,8 +1,9 @@
-import { _decorator, Component, Vec3, Vec2, Node, input, Input, EventKeyboard, KeyCode, misc} from 'cc';
-const { ccclass, property } = _decorator;
+import { Vec3, Vec2, Node, input, Input, EventKeyboard, KeyCode, misc} from 'cc';
+import * as cc from 'cc';
+const { ccclass, property } = cc._decorator;
 
 @ccclass('PlayerController')
-export class PlayerController extends Component {
+export class PlayerController extends cc.Component {
 
     private direction:Vec3 = Vec3.ZERO.clone();
 
